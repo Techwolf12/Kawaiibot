@@ -10,7 +10,7 @@ from sys import exit as die
 
 LAST_UPDATE_ID  = None
 
-with open('config.ini.example', 'r+') as f:
+with open('config.ini', 'r+') as f:
     for line in f.readlines():
         exec(line)
 
