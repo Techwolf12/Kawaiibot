@@ -34,7 +34,7 @@ class Bot():
             return self.commands
         return arguments
 
-    def repl(self):
+    def run(self):
         """ Initially start listening for chat events.
         """
         bot = telegram.Bot(token=config['telegram']['token'])
