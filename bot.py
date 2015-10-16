@@ -1,6 +1,5 @@
 from sys import exit as die
 import telegram
-import random
 import json
 
 with open('config.json') as f:
