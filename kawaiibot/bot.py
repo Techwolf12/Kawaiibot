@@ -2,26 +2,17 @@ import os
 import sys
 import json
 import logging
+import telegram
 
-try:
-    import telegram
-except ImportError as e:
-    print('Failed to import one of the required modules. Did you run pip install -r requirements.txt?', file=sys.stderr)
-    sys.exit(1)
-
-if not os.path.isdir('~/.kawaiibot/'):
+config_dir = os.path.expanduser('~/.kawaiibot')
+if not os.path.isdir(config_dir):
     try:
-        os.mkdir(os.path.expanduser('~/.kawaiibot'))
+        logging.info('Creating config directory')
+        os.mkdir(config_dir)
     except FileExistsError:
         pass
 
-try:
-    with open(os.path.expanduser('~/.kawaiibot/config.json')) as f:
-        config = json.load(f)
-except FileNotFoundError as e:
-    print('The required configuration file was not found. Are you sure that \'~/.kawaiibot/config.json\' exist?', file=sys.stderr)
-    sys.exit(1)
-
+# set up logging
 log_format = "%(asctime)s [%(levelname)-5.5s] %(message)s"
 logging.basicConfig(filename=os.path.expanduser('~/.kawaiibot/kawaiibot.log'),
                     format=log_format, level=logging.INFO)
@@ -31,6 +22,13 @@ console = logging.StreamHandler()
 console.setFormatter(logging.Formatter(log_format))
 
 logging.getLogger('').addHandler(console)
+
+try:
+    with open(os.path.expanduser('~/.kawaiibot/config.json')) as f:
+        config = json.load(f)
+except FileNotFoundError:
+    logging.critical('Configuration file was not found. Does \'{}/config.json\' exist?'.format(config_dir))
+    sys.exit(1)
 
 class Bot:
     commands = {}
@@ -62,11 +60,16 @@ class Bot:
         # Disable Telegram API's logger to prevent spam
         bot.logger.disabled = True
 
+        logging.info('Starting bot')
+
         # TODO: Make this not hacky with tries.
         try:
             self.last_id = bot.getUpdates()[-1].update_id
         except IndexError:
             self.last_id = None
+        except telegram.error.TelegramError:
+            logging.critical('Failed to start bot: Unauthorized (is your Telegram token correct?)')
+            sys.exit(1)
 
         try:
             while True:
