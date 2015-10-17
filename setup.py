@@ -4,7 +4,7 @@
 from distutils.core import setup
 
 setup(
-    name = 'kawaiibat',
+    name = 'kawaiibot',
     version = '0.0.1',
     author = 'soud',
     author_email = 'soud@protonmail.com',
