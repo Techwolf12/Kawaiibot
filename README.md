@@ -12,7 +12,7 @@ A practical telegram bot.
 $ git clone https://github.com/Imakethings/Kawaiibot/
 $ cd Kawaiibot
 $ pip install -r requirements.txt
-# ./setup.py install
+$ sudo ./setup.py install
 ```
 
 This will put the executable `kawaiibot` in your path. To use the bot, you need

@@ -34,7 +34,7 @@ class Bot:
     commands = {}
     last_id = None
 
-    def __init__(self, attributes={}, prefix='!'):
+    def __init__(self, attributes={}, prefix='/'):
         self.__dict__ = attributes
         self.prefix = prefix
 
