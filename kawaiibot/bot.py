@@ -3,6 +3,7 @@ import sys
 import json
 import logging
 import telegram
+import kawaiibot.commands
 
 config_dir = os.path.expanduser('~/.kawaiibot')
 if not os.path.isdir(config_dir):
@@ -67,22 +68,25 @@ class Bot:
             self.last_id = bot.getUpdates()[-1].update_id
         except IndexError:
             self.last_id = None
-        except telegram.error.TelegramError:
-            logging.critical('Failed to start bot: Unauthorized (is your Telegram token correct?)')
+        except telegram.error.TelegramError as e:
+            logging.critical('Failed to start bot: {} (is your Telegram token correct?)'.format(e))
             sys.exit(1)
 
         try:
             while True:
                 for update in bot.getUpdates(offset=self.last_id, timeout=10):
+                    if update.message['photo']:
+                        continue
+
                     message = update.message.text[1::]
                     prefix = update.message.text[0]
-                    instances = [{'name':n, 'found':n == message} for n in self.commands]
+                    instances = [{'name': n, 'found': message.startswith(n)} for n in self.commands]
 
                     for instance in instances:
-                        if (instance['found'] and prefix == self.prefix):
+                        if instance['found'] and prefix == self.prefix:
                             bot.sendMessage(
                                 chat_id=update.message.chat_id,
-                                text=self.commands[instance['name']]()
+                                text=self.commands[instance['name']](message[1:])
                             )
                             self.last_id = update.update_id + 1
         except KeyboardInterrupt:
