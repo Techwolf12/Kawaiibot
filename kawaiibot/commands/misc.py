@@ -1,14 +1,14 @@
-from bot import bot, config
+from kawaiibot.models.bot import kawaiibot
 from imgurpython import ImgurClient as Client
 import random
 
-@bot.command("hey")
+@kawaiibot.command("hey")
 def hey():
     return "Hi!"
 
-@bot.command("kaf")
+@kawaiibot.command("kaf")
 def kaf():
-    client = Client(config['imgur']['id'], config['imgur']['secret'])
+    client = Client(bot.config['imgur']['id'], bot.config['imgur']['secret'])
     random_sort = random.choice(['time', 'top'])
     items = client.subreddit_gallery('awwnime', sort=random_sort, window='week', page=0)
 
