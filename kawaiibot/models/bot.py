@@ -1,9 +1,14 @@
-from sys import exit as die
+import os
+import sys
 import telegram
 import json
 
-with open('config.json') as f:
-    config = json.load(f)
+try:
+    with open(os.path.expanduser('~/.config/kawaiibot.json')) as f:
+        config = json.load(f)
+except FileNotFoundError:
+    print('Config file not found. Does ~/.config/kawaiibot.json exist?', file=sys.stderr)
+    sys.exit(1)
 
 class Bot():
     commands = {}
@@ -35,8 +40,7 @@ class Bot():
         return arguments
 
     def run(self):
-        """ Initially start listening for chat events.
-        """
+        """ Initially start listening for chat events."""
         bot = telegram.Bot(token=config['telegram']['token'])
 
         # TODO: Make this not hacky with tries.
@@ -59,4 +63,4 @@ class Bot():
                         )
                         self.last_id = update.update_id + 1
 
-bot = Bot()
+kawaiibot = Bot()
