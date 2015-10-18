@@ -10,7 +10,7 @@ try:
     imgur_client = ImgurClient(config['imgur']['id'], config['imgur']['secret'])
 except KeyError as e:
     logging.error('Missing imgur[{}] in configuration file. Disabling imgur commands'.format(e) +
-                  ' (see config.json.example) for an example')
+                  ' (see config.json.example for an example)')
 
 @kawaiibot.command('sub')
 def sub(args):
@@ -21,8 +21,6 @@ def sub(args):
     if arg in sub_blacklist:
         return 'You speak an infinite deal of nothing'
 
-    print(arg)
-
     try:
         items = imgur_client.subreddit_gallery(arg, sort=random_sort, window='week', page=0)
     except Exception as e:
@@ -32,7 +30,7 @@ def sub(args):
     if not items:
         return 'My pet ferret can type better than you!'
 
-    return "@{} {}".format(args.message.from_user.username, random.choice(items).link)
+    return '@{} {}'.format(args.message.from_user.username, random.choice(items).link)
 
 @kawaiibot.command('kaf')
 def kaf(args):
