@@ -32,6 +32,7 @@ def enable(args):
         return 'You can\'t do that'
 
     for s in args.message.text.split(' ')[1::]:
+        command = kawaiibot.get_command(s)
         if command in kawaiibot.disabled:
             n.append(command.__name__)
             kawaiibot.disabled.remove(command)
