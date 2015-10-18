@@ -16,5 +16,5 @@ $ sudo ./setup.py install
 ```
 
 This will put the executable `kawaiibot` in your path. To use the bot, you need
-to put the example configuration file in `~/.kawaii/config.json` with your imgur
+to put the example configuration file in `~/.kawaiibot/config.json` with your imgur
 id and secret and Telegram token.
