@@ -3,6 +3,7 @@
 
 from kawaiibot.bot import kawaiibot
 from kawaiibot.commands.misc import *
+from kawaiibot.commands.imgur import *
 
 if __name__ == '__main__':
     kawaiibot.run()

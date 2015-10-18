@@ -48,7 +48,7 @@ class Bot:
         # Disable Telegram API's logger to prevent spam
         bot.logger.disabled = True
 
-        logging.info('Starting bot')
+        logging.info('Started bot')
 
         # TODO: Make this not hacky with tries.
         try:
@@ -77,6 +77,6 @@ class Bot:
                             )
                             self.last_id = update.update_id + 1
         except KeyboardInterrupt:
-            bot.sendMessage(chat_id=update.message.chat_id, text="Afk")
+            logging.info('Stopped bot')
 
 kawaiibot = Bot()
