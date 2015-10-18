@@ -14,8 +14,8 @@ if not os.path.isdir(config_dir):
         pass
 
 # set up logging
-log_format = "%(asctime)s [%(levelname)-5.5s] %(message)s"
-logging.basicConfig(filename=os.path.expanduser('~/.kawaiibot/kawaiibot.log'),
+log_format = '%(asctime)s [%(levelname)-5.5s] %(message)s'
+logging.basicConfig(filename='{}/kawaiibot.log'.format(config_dir),
                     format=log_format, level=logging.INFO)
 
 # stdout logger
@@ -25,7 +25,7 @@ console.setFormatter(logging.Formatter(log_format))
 logging.getLogger('').addHandler(console)
 
 try:
-    with open(os.path.expanduser('~/.kawaiibot/config.json')) as f:
+    with open('{}/config.json'.format(config_dir)) as f:
         config = json.load(f)
 except FileNotFoundError:
     logging.critical('Configuration file was not found. Does \'{}/config.json\' exist?'.format(config_dir))
