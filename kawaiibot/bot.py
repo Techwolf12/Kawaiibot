@@ -75,7 +75,8 @@ class Bot:
         try:
             while True:
                 for update in bot.getUpdates(offset=self.last_id, timeout=10):
-                    if update.message['photo']:
+                    print(update.message)
+                    if not update.message['text']:
                         continue
 
                     message = update.message.text[1::]
