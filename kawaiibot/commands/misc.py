@@ -1,4 +1,5 @@
-from kawaiibot.bot import kawaiibot, config
+from kawaiibot import config
+from kawaiibot.bot import kawaiibot
 from imgurpython import ImgurClient
 import logging
 import random

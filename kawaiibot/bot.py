@@ -1,17 +1,11 @@
 import os
 import sys
-import json
 import logging
 import telegram
+import kawaiibot
 import kawaiibot.commands
 
-config_dir = os.path.expanduser('~/.kawaiibot')
-if not os.path.isdir(config_dir):
-    try:
-        logging.info('Creating config directory')
-        os.mkdir(config_dir)
-    except FileExistsError:
-        pass
+from kawaiibot import config, config_dir
 
 # set up logging
 log_format = '%(asctime)s [%(levelname)-5.5s] %(message)s'
@@ -23,13 +17,6 @@ console = logging.StreamHandler()
 console.setFormatter(logging.Formatter(log_format))
 
 logging.getLogger('').addHandler(console)
-
-try:
-    with open('{}/config.json'.format(config_dir)) as f:
-        config = json.load(f)
-except FileNotFoundError:
-    logging.critical('Configuration file was not found. Does \'{}/config.json\' exist?'.format(config_dir))
-    sys.exit(1)
 
 class Bot:
     commands = {}
