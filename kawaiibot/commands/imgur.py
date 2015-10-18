@@ -12,8 +12,8 @@ except KeyError as e:
     logging.error('Missing imgur[{}] in configuration file. Disabling imgur commands'.format(e) +
                   ' (see config.json.example for an example)')
 
-@kawaiibot.command('sub')
-def sub(args):
+@kawaiibot.command('r')
+def r(args):
     arg = args.message.text.split(' ')[1] if len(args.message.text.split(' ')) > 1 else 'all'
 
     random_sort = random.choice(['time', 'top'])

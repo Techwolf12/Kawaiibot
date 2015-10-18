@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import logging
 import telegram
@@ -43,6 +44,17 @@ class Bot:
             return self.commands
         return arguments
 
+    def get_command(self, message):
+        """
+        Gets command from message
+        @message Message that could contain a command
+        """
+        for command in self.commands:
+            if re.match(r'^({0}$|{0}\ \w*)'.format(command), message):
+                return self.commands[command]
+
+        return False
+
     def run(self):
         """Initially start listening for chat events."""
         bot = telegram.Bot(token=config['telegram']['token'])
@@ -68,16 +80,14 @@ class Bot:
 
                     message = update.message.text[1::]
                     prefix = update.message.text[0]
-                    instances = [{'name': n, 'found': message.startswith(n)} for n in self.commands]
+                    command = self.get_command(message)
 
-                    for instance in instances:
-                        if (instance['found'] and prefix == self.prefix and
-                            instance['name'] not in self.disabled):
-                            bot.sendMessage(
-                                chat_id=update.message.chat_id,
-                                text=self.commands[instance['name']](update)
-                            )
-                            self.last_id = update.update_id + 1
+                    if prefix == self.prefix and command and command not in self.disabled:
+                        bot.sendMessage(
+                            chat_id=update.message.chat_id,
+                            text=command(update)
+                        )
+                        self.last_id = update.update_id + 1
         except KeyboardInterrupt:
             logging.info('Stopped bot')
 
