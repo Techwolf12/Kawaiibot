@@ -14,14 +14,17 @@ except KeyError as e:
 
 @kawaiibot.command('sub')
 def sub(args):
-    arg = args.split(' ')[1] if len(args.split(' ')) > 1 else 'all'
+    arg = args.message.text.split(' ')[1] if len(args.message.text.split(' ')) > 1 else 'all'
+
     random_sort = random.choice(['time', 'top'])
 
     if arg in sub_blacklist:
         return 'You speak an infinite deal of nothing'
 
+    print(arg)
+
     try:
-        items = sub_blacklist.subreddit_gallery(arg, sort=random_sort, window='week', page=0)
+        items = imgur_client.subreddit_gallery(arg, sort=random_sort, window='week', page=0)
     except Exception as e:
         logging.info('ImgurClient: {}'.format(e))
         return 'I can\'t help you at this time. Try again later.'
@@ -29,7 +32,7 @@ def sub(args):
     if not items:
         return 'My pet ferret can type better than you!'
 
-    return random.choice(items).link
+    return "@{} {}".format(args.message.from_user.username, random.choice(items).link)
 
 @kawaiibot.command('kaf')
 def kaf(args):

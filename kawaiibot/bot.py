@@ -21,6 +21,7 @@ logging.getLogger('').addHandler(console)
 class Bot:
     commands = {}
     last_id = None
+    disabled = []
 
     def __init__(self, attributes={}, prefix='/'):
         self.__dict__ = attributes
@@ -70,10 +71,11 @@ class Bot:
                     instances = [{'name': n, 'found': message.startswith(n)} for n in self.commands]
 
                     for instance in instances:
-                        if instance['found'] and prefix == self.prefix:
+                        if (instance['found'] and prefix == self.prefix and
+                            instance['name'] not in self.disabled):
                             bot.sendMessage(
                                 chat_id=update.message.chat_id,
-                                text=self.commands[instance['name']](message[1:])
+                                text=self.commands[instance['name']](update)
                             )
                             self.last_id = update.update_id + 1
         except KeyboardInterrupt:
