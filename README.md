@@ -2,7 +2,7 @@
 A practical telegram bot.
 
 # Installation
-## Dependancies
+## Dependencies
 - imgurpython
 - python-telegram-bot
 - Python 3.x
@@ -16,5 +16,5 @@ $ sudo ./setup.py install
 ```
 
 This will put the executable `kawaiibot` in your path. To use the bot, you need
-to put the example configuration file in `~/.kawaiibot/config.json` with your imgur
+to put the example configuration file in `~/.kawaiibot/config.json` with your Imgur
 id and secret and Telegram token.
