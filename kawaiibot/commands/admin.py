@@ -36,7 +36,7 @@ def enable(args):
     for s in args.message.text.split(' ')[1::]:
         command = kawaiibot.get_command(s)
         if command in kawaiibot.disabled:
-            n.append(command.__name__)
+            n.append(s)
             kawaiibot.disabled.remove(command)
             logging.info('Command \'{}\' enabled by {}'.format(s, user))
     if len(n) > 0:
