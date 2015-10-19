@@ -16,6 +16,8 @@ def disable(args):
         return '@{} You can\'t do that'.format(user)
 
     for s in args.message.text.split(' ')[1::]:
+        if s == 'enable':
+            return 'Nah'
         command = kawaiibot.get_command(s)
         if not command:
             return 'Command {} not found'.format(s)
