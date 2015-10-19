@@ -6,6 +6,7 @@ from kawaiibot.commands.misc import *
 from kawaiibot.commands.imgur import *
 from kawaiibot.commands.admin import *
 from kawaiibot.commands.duckduckgo import *
+from kawaiibot.commands.telegram import *
 
 if __name__ == '__main__':
     kawaiibot.run()
