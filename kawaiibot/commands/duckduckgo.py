@@ -12,3 +12,9 @@ def ddg(args):
 
     return '@{} {}'.format(user, duckduckgo.search(arg))
 
+@kawaiibot.command('!\w*')
+def bang(args):
+    bang = args.message.text.split(' ')[0][1::]
+    query = ''.join(args.message.text.split(' ')[1::])
+
+    return duckduckgo.bang_search(bang, query)

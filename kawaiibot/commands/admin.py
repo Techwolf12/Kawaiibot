@@ -17,12 +17,15 @@ def disable(args):
 
     for s in args.message.text.split(' ')[1::]:
         command = kawaiibot.get_command(s)
+        if not command:
+            return 'Command {} not found'.format(s)
+
         if command not in kawaiibot.disabled:
-            n.append(s)
+            n.append(command)
             kawaiibot.disabled.append(command)
-            logging.info('Command \'{}\' disabled by {}'.format(s, user))
+            logging.info('Command \'{}\' disabled by {}'.format(command.__name__, user))
     if len(n) > 0:
-        return 'Disabled: {}'.format(', '.join(n))
+        return 'Disabled: {}'.format(', '.join([i.__name__ for i in n]))
     else:
         return 'Did nothing. Command already disabled.'
 
@@ -35,12 +38,15 @@ def enable(args):
 
     for s in args.message.text.split(' ')[1::]:
         command = kawaiibot.get_command(s)
+        if not command:
+            return 'Command {} not found'.format(s)
+
         if command in kawaiibot.disabled:
-            n.append(s)
+            n.append(command)
             kawaiibot.disabled.remove(command)
-            logging.info('Command \'{}\' enabled by {}'.format(s, user))
+            logging.info('Command \'{}\' enabled by {}'.format(command.__name__, user))
     if len(n) > 0:
-        return 'Enabled: {}'.format(', '.join(n))
+        return 'Enabled: {}'.format(', '.join([i.__name__ for i in n]))
     else:
         return 'Did nothing. Command already enabled.'
 

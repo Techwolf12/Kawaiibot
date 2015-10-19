@@ -41,7 +41,7 @@ class Bot:
             else:
                 logging.warning('{}.{} -> {}'.format(self.__class__.__name__, '__name__',
                          'Detected argument was not a function'))
-            logging.info('Found command -> {}'.format(handle))
+            logging.info('Found command -> {}'.format(function.__name__))
             return self.commands
         return arguments
 
