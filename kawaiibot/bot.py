@@ -5,6 +5,7 @@ import logging
 import telegram
 import kawaiibot
 import kawaiibot.commands
+import kawaiibot.models
 
 from kawaiibot import config, config_dir
 
@@ -40,7 +41,7 @@ class Bot:
             else:
                 logging.warning('{}.{} -> {}'.format(self.__class__.__name__, '__name__',
                          'Detected argument was not a function'))
-            logging.info('Found command -> {}'.format(handle))
+            logging.info('Found command -> {}'.format(function.__name__))
             return self.commands
         return arguments
 
@@ -75,7 +76,6 @@ class Bot:
         try:
             while True:
                 for update in bot.getUpdates(offset=self.last_id, timeout=10):
-                    print(update.message)
                     if not update.message['text']:
                         continue
 
