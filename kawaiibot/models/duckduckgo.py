@@ -9,7 +9,7 @@ def search(query):
         resp = urllib.request.urlopen(url)
     except Exception as e:
         logging.info('DuckDuckGo: {}'.format(e))
-        return 'Something went wrong'
+        return 'Something went wrong!!'
 
     soup = BeautifulSoup(resp, 'html.parser')
     container = soup.find('div', class_='links_main')

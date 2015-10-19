@@ -15,7 +15,7 @@ except KeyError as e:
 @kawaiibot.command('r')
 def r(args):
     arg = args.message.text.split(' ')[1] if len(args.message.text.split(' ')) > 1 else 'all'
-    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
+    user = args.message.from_user.username if args.message.from_user.username else args.message.from_user.first_name
 
     random_sort = random.choice(['time', 'top'])
 
@@ -36,7 +36,7 @@ def r(args):
 @kawaiibot.command('kaf')
 def kaf(args):
     random_sort = random.choice(['time', 'top'])
-    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
+    user = args.message.from_user.username if args.message.from_user.username else args.message.from_user.first_name
     try:
         items = sub_blacklist.subreddit_gallery('awwnime', sort=random_sort, window='week', page=0)
     except Exception:

@@ -11,7 +11,7 @@ def disabled(args):
 @kawaiibot.command('disable')
 def disable(args):
     n = []
-    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
+    user = args.message.from_user.username if args.message.from_user.username else args.message.from_user.first_name
     if args.message.from_user.username not in admin_usernames:
         return '@{} You can\'t do that'.format(user)
 
@@ -20,7 +20,7 @@ def disable(args):
         if command not in kawaiibot.disabled:
             n.append(s)
             kawaiibot.disabled.append(command)
-            logging.info('Command \'{}\' disabled by {}'.format(s, args.message.from_user.username))
+            logging.info('Command \'{}\' disabled by {}'.format(s, user))
     if len(n) > 0:
         return 'Disabled: {}'.format(', '.join(n))
     else:
@@ -29,7 +29,7 @@ def disable(args):
 @kawaiibot.command('enable')
 def enable(args):
     n = []
-    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
+    user = args.message.from_user.username if args.message.from_user.username else args.message.from_user.first_name
     if args.message.from_user.username not in admin_usernames:
         return '@{} You can\'t do that'.format(user)
 
@@ -38,7 +38,7 @@ def enable(args):
         if command in kawaiibot.disabled:
             n.append(command.__name__)
             kawaiibot.disabled.remove(command)
-            logging.info('Command \'{}\' enabled by {}'.format(s, args.message.from_user.username))
+            logging.info('Command \'{}\' enabled by {}'.format(s, user))
     if len(n) > 0:
         return 'Enabled: {}'.format(', '.join(n))
     else:
