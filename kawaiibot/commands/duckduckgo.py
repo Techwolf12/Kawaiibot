@@ -3,7 +3,7 @@ from kawaiibot.models import duckduckgo
 import logging
 
 @kawaiibot.command('ddg')
-def duck(args):
+def ddg(args):
     arg = ''.join(args.message.text.split(' ')[1::])
     user = args.message.from_user.username if args.message.from_user.username else args.message.from_user.first_name
 
