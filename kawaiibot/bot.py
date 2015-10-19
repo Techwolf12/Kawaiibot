@@ -5,6 +5,7 @@ import logging
 import telegram
 import kawaiibot
 import kawaiibot.commands
+import kawaiibot.models
 
 from kawaiibot import config, config_dir
 
@@ -75,7 +76,6 @@ class Bot:
         try:
             while True:
                 for update in bot.getUpdates(offset=self.last_id, timeout=10):
-                    print(update.message)
                     if not update.message['text']:
                         continue
 

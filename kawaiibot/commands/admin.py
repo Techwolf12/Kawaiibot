@@ -6,13 +6,14 @@ admin_usernames = ['stevenyo', 'NULLSPHERE']
 @kawaiibot.command('disabled')
 def disabled(args):
     disabled = [func.__name__ for func in kawaiibot.disabled]
-    return ', '.join(disabled) if disabled else 'Nothing is disabled'
+    return ', '.join(disabled) if disabled else 'I got nothing!'
 
 @kawaiibot.command('disable')
 def disable(args):
     n = []
+    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
     if args.message.from_user.username not in admin_usernames:
-        return 'You can\'t do that'
+        return '@{} You can\'t do that'.format(user)
 
     for s in args.message.text.split(' ')[1::]:
         command = kawaiibot.get_command(s)
@@ -28,8 +29,9 @@ def disable(args):
 @kawaiibot.command('enable')
 def enable(args):
     n = []
+    user = args.message.from_user.username if args.message.from_user.username else arg.message.from_user.first_name
     if args.message.from_user.username not in admin_usernames:
-        return 'You can\'t do that'
+        return '@{} You can\'t do that'.format(user)
 
     for s in args.message.text.split(' ')[1::]:
         command = kawaiibot.get_command(s)
